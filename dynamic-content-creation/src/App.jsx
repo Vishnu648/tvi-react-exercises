@@ -17,7 +17,10 @@ function App() {
 
   return (
     <div className="container p-4">
-      <div className="d-flex justify-content-center gap-3 align-items-center ">
+      <h1 className="text-center mb-5">
+        <u>Image Gallery</u>
+      </h1>
+      <div className="d-flex justify-content-center gap-3 align-items-center m-3">
         <button
           className="w-25 p-3 rounded"
           onClick={() => setCount((prev) => prev - 1)}
@@ -39,13 +42,20 @@ function App() {
 
       {count > 10 || count < 0 ? (
         <p className="d-flex justify-content-center  align-items-center m-5 text-danger">
-          Count should be between 0 and 10
+          Count should be between 0 and {imgGallery.length}
         </p>
       ) : (
         <div className="d-flex justify-content-center  align-items-center gap-5 flex-wrap m-5">
           {imgGallery.map((img, i) => {
             if (i < count) {
-              return <img className="rounded" key={i} src={img} alt={img} />;
+              return (
+                <img
+                  className="rounded w-25 h-25 "
+                  key={i}
+                  src={img}
+                  alt={img}
+                />
+              );
             }
           })}
         </div>
