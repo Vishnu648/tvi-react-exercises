@@ -42,7 +42,7 @@ function Dashboard() {
       <header>
         <h1 style={{ margin: "15px" }}>Employee Dashboard</h1>
         <Link to={'/newEmployee'} >
-          <button className="addBtn">Add</button>
+          <button className="addBtn" title="add new employee">Add</button>
         </Link>
       </header>
       {isLoading ? (
