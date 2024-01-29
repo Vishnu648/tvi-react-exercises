@@ -9,10 +9,11 @@ export default class NewEmplyee extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "aa",
-      job: "bb",
-      email: "cc",
+      name: "",
+      job: "",
+      email: "",
       isSuccess: false,
+      error:false,
     };
   }
 
@@ -47,6 +48,7 @@ export default class NewEmplyee extends Component {
           }, 3000);
         }
       } catch (error) {
+        this.setState({error:true})
         console.log(error);
       }
     };
@@ -86,12 +88,12 @@ export default class NewEmplyee extends Component {
             value={this.state.job}
             placeholder="job"
           />
-          <input
+          {/* <input
             type="email"
             placeholder="email"
             onChange={this.handleEmailChange}
             value={this.state.email}
-          />
+          /> */}
           <button
             type="buttn"
             className="addBtn"
@@ -101,8 +103,13 @@ export default class NewEmplyee extends Component {
             Add
           </button>
           {this.state.isSuccess ? (
-            <Alert message={"Employee Added Successfully"} />
+            <Alert severity="success" message={"Employee Added Successfully"} />
           ) : null}
+
+          {this.state.error ? (
+            <Alert severity="error" message={"Something went wrong"} />
+          ) : null}
+
         </form>
       </div>
     );
