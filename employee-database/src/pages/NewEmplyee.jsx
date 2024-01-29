@@ -9,53 +9,58 @@ export default class NewEmplyee extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      job: "",
-      email: "",
+      name: "aa",
+      job: "bb",
+      email: "cc",
       isSuccess: false,
     };
   }
 
-  handleNameChange=(e) => {
+  handleNameChange = (e) => {
     this.setState({ name: e.target.value });
-  }
+  };
 
-  handleJobChange=(e) => {
+  handleJobChange = (e) => {
     this.setState({ job: e.target.value });
-  }
+  };
 
-  handleEmailChange=(e) => {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
-  }
-  
+  };
 
-  handleAdd = (e) => {
+  handleAdd = async (e) => {
     e.preventDefault();
 
     const data = {
       name: this.state.name,
       job: this.state.job,
     };
-    
+
     const postData = async () => {
       try {
+        console.log("----");
         const response = await axios.post("https://reqres.in/api/users", data);
-        if (response.status == 201) {
+        if (response.status === 201) {
           this.setState({ isSuccess: true });
+          setTimeout(() => {
+            this.setState({ isSuccess: false });
+          }, 3000);
         }
-        setTimeout(() => {
-          this.setState({ isSuccess: false });
-        }, 3000);
       } catch (error) {
-        console.error(error.message);
+        console.log(error);
       }
     };
-    if (name.length > 0 && job.length > 0) {
+
+    if (this.state.name.length > 0 && this.state.job.length > 0) {
       postData();
     }
-   this.setState({name:''})
-   this.setState({job:''})
-   this.setState({email:''})
+
+    // Resetting the form fields and success state
+    this.setState({
+      name: "",
+      job: "",
+      email: "",
+    });
   };
 
   render() {
@@ -95,7 +100,9 @@ export default class NewEmplyee extends Component {
           >
             Add
           </button>
-          {this.isSuccess ? <Alert message={"Employee Added Successfully"} /> : null}
+          {this.state.isSuccess ? (
+            <Alert message={"Employee Added Successfully"} />
+          ) : null}
         </form>
       </div>
     );
