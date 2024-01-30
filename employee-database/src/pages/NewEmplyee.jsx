@@ -13,7 +13,8 @@ export default class NewEmplyee extends Component {
       job: "",
       email: "",
       isSuccess: false,
-      error:false,
+      error: false,
+      validation: false,
     };
   }
 
@@ -40,6 +41,7 @@ export default class NewEmplyee extends Component {
     const postData = async () => {
       try {
         console.log("----");
+        this.setState({ validation: false });
         const response = await axios.post("https://reqres.in/api/users", data);
         if (response.status === 201) {
           this.setState({ isSuccess: true });
@@ -48,13 +50,17 @@ export default class NewEmplyee extends Component {
           }, 3000);
         }
       } catch (error) {
-        this.setState({error:true})
+        this.setState({ error: true });
         console.log(error);
       }
     };
 
     if (this.state.name.length > 0 && this.state.job.length > 0) {
       postData();
+    }
+
+    if (this.state.name.length < 1 || this.state.job.length < 1) {
+      this.setState({ validation: true });
     }
 
     // Resetting the form fields and success state
@@ -102,6 +108,10 @@ export default class NewEmplyee extends Component {
           >
             Add
           </button>
+
+          {this.state.validation ? (
+            <Alert severity="error" message={"please fill all the field"} />
+          ) : null}
           {this.state.isSuccess ? (
             <Alert severity="success" message={"Employee Added Successfully"} />
           ) : null}
@@ -109,7 +119,6 @@ export default class NewEmplyee extends Component {
           {this.state.error ? (
             <Alert severity="error" message={"Something went wrong"} />
           ) : null}
-
         </form>
       </div>
     );
