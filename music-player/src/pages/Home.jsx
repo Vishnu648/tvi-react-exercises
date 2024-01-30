@@ -37,20 +37,23 @@ function Home() {
     });
   };
 
-  const counterLoop = async () => {
-    for (let i = 1; i <= 3; i++) {
-      let count = await setTimeout(() => {
-        setCounter(i);
+  const counterLoop = async (count) => {
+    for (let i = 0; i < 4; i++) {
+      setTimeout(() => {
+        console.log(count+1)
       }, i * 1000);
     }
-    showToastMessage();
-    setCounter(0);
   };
 
-  const handleCounter = () => {
-    for (let i = 0; i < 3; i++) {
-      counterLoop();
-    }
+  const handleCounter = async () => {
+    await new Promise((res, rej) => {
+      for (let i = 1; i <= 3; i++) {
+        setTimeout(() => {
+          counterLoop(i);
+          res();
+        }, i * 1000);
+      }
+    });
   };
 
   return (
