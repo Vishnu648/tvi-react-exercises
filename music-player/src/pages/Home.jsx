@@ -23,11 +23,34 @@ function Home() {
   ]);
 
   const [counter, setCounter] = useState(0);
+  const [stopCounter, setStopCounter] = useState(true);
 
   const showToastMessage = () => {
-    toast("Playing next track!",{
-      position:"top-center",
+    toast("Playing next track!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      closeButton: false,
     });
+  };
+
+  const counterLoop = async () => {
+    for (let i = 1; i <= 3; i++) {
+      let count = await setTimeout(() => {
+        setCounter(i);
+      }, i * 1000);
+    }
+    showToastMessage();
+    setCounter(0);
+  };
+
+  const handleCounter = () => {
+    for (let i = 0; i < 3; i++) {
+      counterLoop();
+    }
   };
 
   return (
@@ -40,7 +63,7 @@ function Home() {
         {counter}
         {playlist.map((m) => {
           return (
-            <div className="music" key={m.id}>
+            <div className="music" key={m.id} onClick={handleCounter}>
               <p>{m.name}</p>
               <audio controls>
                 <source src={m.music} />
@@ -48,7 +71,6 @@ function Home() {
             </div>
           );
         })}
-        <button onClick={showToastMessage}>Notify</button>
       </section>
       <ToastContainer />
     </div>
