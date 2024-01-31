@@ -62,6 +62,7 @@ header {
   height: 200px;
   width: 200px;
   border-radius: 10px;
+  box-shadow:  17px 0 16px -10px rgba(0,0,0,0.4)
 }
 #streamingDetails{
   padding: 30px;
@@ -77,14 +78,23 @@ header {
   font-family: 'Courier New', Courier, monospace;
 }
 #audioTag{
-  height: 80px;
+  height: 100px;
   width: 350px;
   border-radius:8px;
-  /* border: 1px solid red */
 }
 #audio{
   background-color: red;
   width: 100%;
   border: 2px solid white;
   border-radius: 8px
+}
+#nextPrevSong{
+  height: 31px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+#nextPrevSong img{
+  cursor: pointer;
 }

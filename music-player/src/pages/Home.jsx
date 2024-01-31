@@ -50,6 +50,7 @@ function Home() {
   ]);
 
   const [counter, setCounter] = useState();
+  const [randomSongId, setRandomSongId] = useState(1);
   const [selectedMusic, setSelectedMusic] = useState({
     name: "Udhungada Sangu ",
     music: two,
@@ -60,8 +61,8 @@ function Home() {
 
   const showToastMessage = () => {
     toast("Playing next track!", {
-      position: "top-right",
-      autoClose: 2000,
+      position: "top-left",
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -70,15 +71,28 @@ function Home() {
     });
   };
 
+  const randomNumberGenerator = () => {
+    let num = Math.random() * (6 - 1) + 1;
+    let num1 = Math.floor(num);
+    setRandomSongId(num1);
+    return randomSongId;
+  };
+
   const increNum = async (i) => {
     await new Promise((resolve) =>
       setTimeout(() => {
+        if (i == 10) {
+          showToastMessage();
+            let loggg=randomNumberGenerator();
+            console.log(loggg)
+        
+        }
         resolve(setCounter(i));
       }, 1000)
     );
   };
   const theLoop = async () => {
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 10; i++) {
       await increNum(i);
     }
   };
@@ -101,6 +115,7 @@ function Home() {
         <h1>Music Player</h1>
       </header>
       <section className="musicContainer">
+        {counter}
         <div id="playStream">
           <div className="streaming">
             <div id="upperStream">
@@ -115,9 +130,22 @@ function Home() {
                 <p className="streamComposer">{selectedMusic.composer}</p>
               </div>
             </div>
-            <br />
             <div id="audioTag">
-            <audio id="audio" controls src={selectedMusic.music} />
+              <div id="nextPrevSong">
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-previous.svg"
+                  alt="prev"
+                />
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
+                  alt="pause/play"
+                />
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-next.svg"
+                  alt="pause/play"
+                />
+              </div>
+              <audio id="audio" controls src={selectedMusic.music} autoPlay />
             </div>
           </div>
           {playlist.map((m) => {
