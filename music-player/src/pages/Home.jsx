@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -50,7 +50,13 @@ function Home() {
   ]);
 
   const [counter, setCounter] = useState();
-  const [isPlaying, setisPlaying] = useState(false);
+  const [selectedMusic, setSelectedMusic] = useState({
+    name: "Udhungada Sangu ",
+    music: two,
+    id: 2,
+    composer: "Anirudh Ravichander",
+    img: UdhundadaSangu,
+  });
 
   const showToastMessage = () => {
     toast("Playing next track!", {
@@ -83,8 +89,10 @@ function Home() {
     }
   };
 
-  const selectMusic = (id) => {
-    console.log(id);
+  const selectMusic = (selectedId) => {
+    let clicked = playlist.find((p) => p.id == selectedId);
+    setSelectedMusic(clicked);
+    console.log(clicked);
   };
 
   return (
@@ -94,7 +102,24 @@ function Home() {
       </header>
       <section className="musicContainer">
         <div id="playStream">
-          <div className="streaming"></div>
+          <div className="streaming">
+            <div id="upperStream">
+              <img
+                onClick={() => console.log(selectMusic)}
+                id="streamingImg"
+                src={selectedMusic.img}
+              />
+              <div id="streamingDetails">
+                <p className="streamName">{selectedMusic.name}</p>
+                <p></p>
+                <p className="streamComposer">{selectedMusic.composer}</p>
+              </div>
+            </div>
+            <br />
+            {/* <div id="audioTag"> */}
+            <audio controls src={selectMusic.music} />
+            {/* </div> */}
+          </div>
           {playlist.map((m) => {
             return (
               <div className="music" key={m.id} onClick={() => runLoops(m.id)}>
