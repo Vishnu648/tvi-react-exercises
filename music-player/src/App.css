@@ -77,8 +77,14 @@ header {
   font-family: 'Courier New', Courier, monospace;
 }
 #audioTag{
-  height: 100px;
+  height: 80px;
   width: 350px;
   border-radius:8px;
-  border: 1px solid red
+  /* border: 1px solid red */
+}
+#audio{
+  background-color: red;
+  width: 100%;
+  border: 2px solid white;
+  border-radius: 8px
 }

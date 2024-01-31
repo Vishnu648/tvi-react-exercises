@@ -116,9 +116,9 @@ function Home() {
               </div>
             </div>
             <br />
-            {/* <div id="audioTag"> */}
-            <audio controls src={selectMusic.music} />
-            {/* </div> */}
+            <div id="audioTag">
+            <audio id="audio" controls src={selectedMusic.music} />
+            </div>
           </div>
           {playlist.map((m) => {
             return (
