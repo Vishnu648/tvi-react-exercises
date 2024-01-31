@@ -1,41 +1,55 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
-  color: white;
+body {
+  color: black;
 }
-header{
-  background-color: black;
-  color: whitesmoke;
+header {
+  background-color: #eae0f3;
+  color: black;
   text-align: center;
   padding: 15px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 }
-.musicContainer{
-  background-color: #323031;
+.musicContainer {
+  background-color: #faf5ff;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 10px ;
 }
-.music{
-  border: 1px solid white;
+.streaming {
+  background-color: #eae0f3;
+  height: 300px;
+  width: 100%;
+  border-radius: 10px 10px 0 0 ;
+  
+}
+#playStream{
+  background-color: white;
+  width: 80%;
+  border-radius: 8px;
+}
+.music {
   border-radius: 8px;
   padding: 8px;
-  margin: 5px ;
-  width: 500px;
+  margin: 5px;
+  width: 80%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
 }
-.streaming{
-  border: 1px solid white;
-  height: 300px;
-  width: 750px;
-  border-radius: 8px;
-  margin: 5px;
+#musicLogo {
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+#composer{
+  color: gray;
+  font-size: 13px;
 }
