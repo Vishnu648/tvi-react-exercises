@@ -12,6 +12,9 @@ header {
   text-align: center;
   padding: 15px;
   font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .musicContainer {
   background-color: #faf5ff;
@@ -80,21 +83,26 @@ header {
 #audioTag{
   height: 100px;
   width: 350px;
-  border-radius:8px;
+  /* border-radius:8px; */
 }
 #audio{
-  background-color: red;
   width: 100%;
-  border: 2px solid white;
-  border-radius: 8px
 }
+
 #nextPrevSong{
-  height: 31px;
-  width: 200px;
+  height: 51px;
+  width: 290px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 #nextPrevSong img{
   cursor: pointer;
+  height: 30px;
+}
+#shuffle{
+  height: 20px;
+  width: 25px;
 }

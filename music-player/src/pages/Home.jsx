@@ -8,6 +8,7 @@ import three from "../assets/music/3.mp3";
 import four from "../assets/music/4.mp3";
 import five from "../assets/music/5.mp3";
 
+import Play from "/play.png";
 import {
   enthero,
   Kokkarakokkarako,
@@ -15,6 +16,7 @@ import {
   palaPalakkura,
   UdhundadaSangu,
 } from "../assets/logos/logos";
+import Shuffle from "../assets/logos/shuffle.png";
 
 function Home() {
   const [playlist, setPlaylist] = useState([
@@ -58,11 +60,13 @@ function Home() {
     composer: "Anirudh Ravichander",
     img: UdhundadaSangu,
   });
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isShuffle, setIsShuffle] = useState(false);
 
-  const showToastMessage = () => {
-    toast("Playing next track!", {
+  const showToastMessage = (message = "Playing next track!") => {
+    toast(message, {
       position: "top-left",
-      autoClose: 3000,
+      autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -71,42 +75,74 @@ function Home() {
     });
   };
 
-  const randomNumberGenerator = () => {
-    let num = Math.random() * (6 - 1) + 1;
-    let num1 = Math.floor(num);
-    setRandomSongId(num1);
-    return randomSongId;
-  };
-
   const increNum = async (i) => {
     await new Promise((resolve) =>
       setTimeout(() => {
-        if (i == 10) {
+        if (i == 5) {
           showToastMessage();
-            let loggg=randomNumberGenerator();
-            console.log(loggg)
-        
+          if (isShuffle) {
+            let num = Math.random() * (6 - 1) + 1;
+            let num1 = Math.floor(num);
+
+            randomeSong(num1);
+          }else{
+            if(selectedMusic.id==5){
+              randomeSong(1)
+            }else{
+              let shuffleId=0
+              randomeSong(selectedMusic.id+1)
+            }
+          }
         }
         resolve(setCounter(i));
       }, 1000)
     );
   };
   const theLoop = async () => {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
       await increNum(i);
     }
   };
   const runLoops = async (id) => {
     selectMusic(id);
+
     for (let i = 0; i < 25; i++) {
       await theLoop();
     }
   };
 
+  const randomeSong = (id) => {
+    selectMusic(id);
+  };
+
   const selectMusic = (selectedId) => {
     let clicked = playlist.find((p) => p.id == selectedId);
     setSelectedMusic(clicked);
-    console.log(clicked);
+  };
+
+  const previousSong = (id) => {
+    runLoops();
+    showToastMessage("Playing previous track!");
+    if (id == 1) {
+      randomeSong(5);
+    } else {
+      randomeSong(id - 1);
+    }
+  };
+
+  const nextSong = (id) => {
+    runLoops();
+    showToastMessage();
+    if (id == 5) {
+      console.log('reached 5');
+    } else {
+      console.log('not 5');
+    }
+  };
+
+  const handleShuffle = () => {
+    setIsShuffle((prev) => !prev);
+
   };
 
   return (
@@ -119,11 +155,7 @@ function Home() {
         <div id="playStream">
           <div className="streaming">
             <div id="upperStream">
-              <img
-                onClick={() => console.log(selectMusic)}
-                id="streamingImg"
-                src={selectedMusic.img}
-              />
+              <img id="streamingImg" src={selectedMusic.img} />
               <div id="streamingDetails">
                 <p className="streamName">{selectedMusic.name}</p>
                 <p></p>
@@ -133,24 +165,48 @@ function Home() {
             <div id="audioTag">
               <div id="nextPrevSong">
                 <img
+                  onClick={() => previousSong(selectedMusic.id)}
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-previous.svg"
                   alt="prev"
                 />
+                {isPlaying ? (
+                  <img
+                    onClick={() => setIsPlaying(false)}
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
+                    alt="pause"
+                  />
+                ) : (
+                  <img
+                    onClick={() => setIsPlaying(true)}
+                    src={Play}
+                    alt="play"
+                  />
+                )}
                 <img
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
-                  alt="pause/play"
-                />
-                <img
+                  onClick={() => nextSong(selectedMusic.id)}
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-next.svg"
-                  alt="pause/play"
+                  alt="next"
                 />
+                {isShuffle? 
+                <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
+                :   <img id="shuffle" src={Play} onClick={handleShuffle} />
+                }
               </div>
               <audio id="audio" controls src={selectedMusic.music} autoPlay />
             </div>
           </div>
           {playlist.map((m) => {
             return (
-              <div className="music" key={m.id} onClick={() => runLoops(m.id)}>
+              <div
+                style={
+                  m.id === selectedMusic.id
+                    ? { opacity: "0.3" }
+                    : { opacity: "1" }
+                }
+                className="music"
+                key={m.id}
+                onClick={() => runLoops(m.id)}
+              >
                 <img src={m.img} alt="i" id="musicLogo" />
                 <div>
                   <p id="musicName">{m.name}</p>
