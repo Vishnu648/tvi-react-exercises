@@ -84,7 +84,7 @@ header {
 }
 #audioTag {
   height: 150px;
-  width: 285px;
+  width: 286px;
   overflow: hidden;
 }
 #audio {
@@ -106,7 +106,7 @@ header {
 }
 #nextPrevSong {
   height: 51px;
-  width: 250px;
+  width: 290px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -120,37 +120,12 @@ header {
 #shuffle {
   height: 20px;
   width: 25px;
-}
-.playPause {
-  width: 80px;
   position: relative;
-  right: -10px;
-}
-.playPause {
-  width: 120px;
-  position: relative;
-  left: -3px;
-}
-.playPause::-webkit-media-controls-volume-slider,
-.playPause::-webkit-media-controls-mute-button,
-.playPause::-webkit-media-controls-timeline,
-.playPause::-webkit-media-controls-current-time-display,
-.playPause::-webkit-media-controls-time-remaining-display {
-  display: none !important;
-}
-
-/* Center the remaining controls */
-.playPause::-webkit-media-controls {
-  -webkit-justify-content: center;
-  height: 25px;
+  left: -5px;
 }
 #playOrPause {
-  width: 48px;
-  height: 50px;
-  margin: 0 23px;
-  overflow: hidden;
-  background-color: #fff;
-  border-radius: 50%;
+  border: 1px solid red;
+  width: 115px;
 }
 #playOrPause::-webkit-media-controls-volume-slider,
 #playOrPause::-webkit-media-controls-mute-button,

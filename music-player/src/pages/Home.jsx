@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import "../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,6 +19,7 @@ import {
 import Shuffle from "../assets/logos/shuffle.png";
 
 function Home() {
+  const audioPlayerRef = useRef(null);
   const [playlist, setPlaylist] = useState([
     {
       name: "Pala Palakkura",
@@ -60,13 +61,13 @@ function Home() {
     composer: "Anirudh Ravichander",
     img: UdhundadaSangu,
   });
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
 
   const showToastMessage = (message = "Playing next track!") => {
     toast(message, {
       position: "top-left",
-      autoClose: 4000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -80,19 +81,19 @@ function Home() {
       setTimeout(() => {
         if (i == 5) {
           showToastMessage();
-          if (isShuffle) {
-            let num = Math.random() * (6 - 1) + 1;
-            let num1 = Math.floor(num);
+          // if (isShuffle) {
+          let num = Math.random() * (6 - 1) + 1;
+          let num1 = Math.floor(num);
 
-            randomeSong(num1);
-          } else {
-            if (selectedMusic.id == 5) {
-              randomeSong(1);
-            } else {
-              let shuffleId = 0;
-              randomeSong(selectedMusic.id + 1);
-            }
-          }
+          randomeSong(num1);
+          // } else {
+          //   if (selectedMusic.id == 5) {
+          //     randomeSong(1);
+          //   } else {
+          //     let shuffleId = 0;
+          //     randomeSong(selectedMusic.id + 1);
+          //   }
+          // }
         }
         resolve(setCounter(i));
       }, 1000)
@@ -144,6 +145,17 @@ function Home() {
     setIsShuffle((prev) => !prev);
   };
 
+  const playAndPause = () => {
+    setIsPlaying((prev) => !prev);
+    const audioPlayer = audioPlayerRef.current;
+
+    if (audioPlayer.paused) {
+      audioPlayer.play();
+    } else {
+      audioPlayer.pause();
+    }
+  };
+
   return (
     <div className="container">
       <header>
@@ -168,27 +180,15 @@ function Home() {
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-previous.svg"
                   alt="prev"
                 />
-                {/* {isPlaying ? (
+                {isPlaying ? (
                   <img
-                    onClick={() => setIsPlaying(false)}
+                    onClick={playAndPause}
                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
                     alt="pause"
                   />
                 ) : (
-                  <img
-                    onClick={() => setIsPlaying(true)}
-                    src={Play}
-                    alt="play"
-                  />
-                )} */}
-                <div id="playOrPause">
-                  <audio
-                    className="playPause"
-                    controls
-                    src={selectedMusic.music}
-                    autoPlay
-                  />
-                </div>
+                  <img onClick={playAndPause} src={Play} alt="play" />
+                )}
 
                 <img
                   onClick={() => nextSong(selectedMusic.id)}
@@ -202,6 +202,7 @@ function Home() {
                 )}
               </div>
               <audio
+                ref={audioPlayerRef}
                 id="audio"
                 controls
                 src={selectedMusic.music}
