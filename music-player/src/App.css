@@ -11,7 +11,7 @@ header {
   color: black;
   text-align: center;
   padding: 15px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,21 +22,23 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px ;
+  padding: 10px;
+  overflow: hidden;
+  position: relative;
 }
 .streaming {
   background-color: #eae0f3;
   height: 400px;
   width: 100%;
-  border-radius: 10px 10px 0 0 ;
+  border-radius: 10px 10px 0 0;
   padding: 30px;
 }
-#upperStream{
+#upperStream {
   width: 100%;
   display: flex;
   height: 220px;
 }
-#playStream{
+#playStream {
   background-color: white;
   width: 650px;
   border-radius: 8px;
@@ -57,52 +59,109 @@ header {
   border-radius: 50%;
   object-fit: cover;
 }
-#composer{
+#composer {
   color: gray;
   font-size: 13px;
 }
-#streamingImg{
+#streamingImg {
   height: 200px;
   width: 200px;
   border-radius: 10px;
-  box-shadow:  17px 0 16px -10px rgba(0,0,0,0.4)
+  box-shadow: 17px 0 16px -10px rgba(0, 0, 0, 0.4);
 }
-#streamingDetails{
+#streamingDetails {
   padding: 30px;
 }
-.streamName{
+.streamName {
   font-size: large;
   font-weight: bolder;
   font-size: 25px;
   margin-bottom: 15px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
-.streamComposer{
-  font-family: 'Courier New', Courier, monospace;
+.streamComposer {
+  font-family: "Courier New", Courier, monospace;
 }
-#audioTag{
-  height: 100px;
+#audioTag {
+  height: 150px;
+  width: 285px;
+  overflow: hidden;
+}
+#audio {
   width: 350px;
-  /* border-radius:8px; */
+  position: relative;
+  background-color: #fff;
+  left: -35px;
 }
-#audio{
-  width: 100%;
+#audioPlayer::-webkit-media-controls-play-button,
+#audio::-webkit-media-controls-volume-slider,
+#audio::-webkit-media-controls-mute-button {
+  display: none !important;
 }
 
-#nextPrevSong{
+/* Center the remaining controls */
+#audio::-webkit-media-controls {
+  -webkit-justify-content: center;
+  height: 25px;
+}
+#nextPrevSong {
   height: 51px;
-  width: 290px;
+  width: 250px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
 }
-#nextPrevSong img{
+#nextPrevSong img {
   cursor: pointer;
   height: 30px;
 }
-#shuffle{
+#shuffle {
   height: 20px;
   width: 25px;
+}
+.playPause {
+  width: 80px;
+  position: relative;
+  right: -10px;
+}
+.playPause {
+  width: 120px;
+  position: relative;
+  left: -3px;
+}
+.playPause::-webkit-media-controls-volume-slider,
+.playPause::-webkit-media-controls-mute-button,
+.playPause::-webkit-media-controls-timeline,
+.playPause::-webkit-media-controls-current-time-display,
+.playPause::-webkit-media-controls-time-remaining-display {
+  display: none !important;
+}
+
+/* Center the remaining controls */
+.playPause::-webkit-media-controls {
+  -webkit-justify-content: center;
+  height: 25px;
+}
+#playOrPause {
+  width: 48px;
+  height: 50px;
+  margin: 0 23px;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 50%;
+}
+#playOrPause::-webkit-media-controls-volume-slider,
+#playOrPause::-webkit-media-controls-mute-button,
+#playOrPause::-webkit-media-controls-timeline,
+#playOrPause::-webkit-media-controls-current-time-display,
+#playOrPause::-webkit-media-controls-time-remaining-display {
+  display: none !important;
+}
+
+/* Center the remaining controls */
+#playOrPause::-webkit-media-controls {
+  -webkit-justify-content: center;
+  height: 25px;
 }

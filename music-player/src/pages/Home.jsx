@@ -85,12 +85,12 @@ function Home() {
             let num1 = Math.floor(num);
 
             randomeSong(num1);
-          }else{
-            if(selectedMusic.id==5){
-              randomeSong(1)
-            }else{
-              let shuffleId=0
-              randomeSong(selectedMusic.id+1)
+          } else {
+            if (selectedMusic.id == 5) {
+              randomeSong(1);
+            } else {
+              let shuffleId = 0;
+              randomeSong(selectedMusic.id + 1);
             }
           }
         }
@@ -134,15 +134,14 @@ function Home() {
     runLoops();
     showToastMessage();
     if (id == 5) {
-      console.log('reached 5');
+      randomeSong(1);
     } else {
-      console.log('not 5');
+      randomeSong(id + 1);
     }
   };
 
   const handleShuffle = () => {
     setIsShuffle((prev) => !prev);
-
   };
 
   return (
@@ -169,7 +168,7 @@ function Home() {
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-previous.svg"
                   alt="prev"
                 />
-                {isPlaying ? (
+                {/* {isPlaying ? (
                   <img
                     onClick={() => setIsPlaying(false)}
                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
@@ -181,18 +180,34 @@ function Home() {
                     src={Play}
                     alt="play"
                   />
-                )}
+                )} */}
+                <div id="playOrPause">
+                  <audio
+                    className="playPause"
+                    controls
+                    src={selectedMusic.music}
+                    autoPlay
+                  />
+                </div>
+
                 <img
                   onClick={() => nextSong(selectedMusic.id)}
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-next.svg"
                   alt="next"
                 />
-                {isShuffle? 
-                <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
-                :   <img id="shuffle" src={Play} onClick={handleShuffle} />
-                }
+                {isShuffle ? (
+                  <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
+                ) : (
+                  <img id="shuffle" src={Play} onClick={handleShuffle} />
+                )}
               </div>
-              <audio id="audio" controls src={selectedMusic.music} autoPlay />
+              <audio
+                id="audio"
+                controls
+                src={selectedMusic.music}
+                autoPlay
+                muted
+              />
             </div>
           </div>
           {playlist.map((m) => {
