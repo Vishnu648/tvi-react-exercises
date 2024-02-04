@@ -63,6 +63,10 @@ function Home() {
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
+  const [stopCounter, setStopCounter] = useState(true);
+  const [temp, setTemp] = useState(0);
+
+  
 
   const showToastMessage = (message = "Playing next track!") => {
     toast(message, {
@@ -81,19 +85,19 @@ function Home() {
       setTimeout(() => {
         if (i == 5) {
           showToastMessage();
-          // if (isShuffle) {
+          if (isShuffle) {
           let num = Math.random() * (6 - 1) + 1;
           let num1 = Math.floor(num);
+          console.log(num1);
 
           randomeSong(num1);
-          // } else {
-          //   if (selectedMusic.id == 5) {
-          //     randomeSong(1);
-          //   } else {
-          //     let shuffleId = 0;
-          //     randomeSong(selectedMusic.id + 1);
-          //   }
-          // }
+          } else {
+            if (selectedMusic.id == 5) {
+              randomeSong(1);
+            } else {
+              randomeSong(selectedMusic.id + 1);
+            }
+          }
         }
         resolve(setCounter(i));
       }, 1000)
@@ -108,7 +112,20 @@ function Home() {
     selectMusic(id);
 
     for (let i = 0; i < 25; i++) {
-      await theLoop();
+      if (setTemp != 0) {
+        setStopCounter(false);
+      }
+      let i;
+      for (i = 0; i < 3; i++) {
+        setTemp(temp + 1);
+        if (stopCounter) {
+          await theLoop();
+        } else {
+          setCounter(0);
+          setStopCounter(false)
+          return;
+        }
+      }
     }
   };
 
@@ -143,6 +160,7 @@ function Home() {
 
   const handleShuffle = () => {
     setIsShuffle((prev) => !prev);
+    console.log(isShuffle);
   };
 
   const playAndPause = () => {
@@ -198,7 +216,7 @@ function Home() {
                 {isShuffle ? (
                   <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
                 ) : (
-                  <img id="shuffle" src={Play} onClick={handleShuffle} />
+                  <img id="shuffle" style={{opacity:.2}} src={Shuffle} onClick={handleShuffle} />
                 )}
               </div>
               <audio
@@ -207,7 +225,6 @@ function Home() {
                 controls
                 src={selectedMusic.music}
                 autoPlay
-                muted
               />
             </div>
           </div>
