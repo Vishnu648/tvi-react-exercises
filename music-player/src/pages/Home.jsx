@@ -52,8 +52,6 @@ function Home() {
     },
   ]);
 
-  useEffect(() => {}, []);
-
   const [counter, setCounter] = useState();
   const [randomSongId, setRandomSongId] = useState(1);
   const [selectedMusic, setSelectedMusic] = useState({
@@ -90,13 +88,14 @@ function Home() {
             let num1 = Math.floor(num);
             console.log("isShuffle", num1);
             randomeSong(num1);
-          } else {
-            if (selectedMusic.id == 5) {
-              randomeSong(1);
-            } else {
-              randomeSong(selectedMusic.id + 1);
-            }
-          }
+          } 
+          // else {
+          //   if (selectedMusic.id == 5) {
+          //     randomeSong(1);
+          //   } else {
+          //     randomeSong(selectedMusic.id + 1);
+          //   }
+          // }
         }
         resolve(setCounter(i));
       }, 1000)
@@ -109,7 +108,7 @@ function Home() {
   };
   const runLoops = async (id) => {
     selectMusic(id);
-    setIsPlaying((prev) => !prev);
+    setIsPlaying(true);
 
     for (let i = 0; i < 25; i++) {
       if (setTemp != 0) {
