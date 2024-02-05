@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,21 +52,21 @@ function Home() {
     },
   ]);
 
+  useEffect(() => {}, []);
+
   const [counter, setCounter] = useState();
   const [randomSongId, setRandomSongId] = useState(1);
   const [selectedMusic, setSelectedMusic] = useState({
-    name: "Udhungada Sangu ",
-    music: two,
-    id: 2,
-    composer: "Anirudh Ravichander",
-    img: UdhundadaSangu,
+    name: "Pala Palakkura",
+    music: Ayan,
+    id: 1,
+    composer: "Harris Jayaraj",
+    img: palaPalakkura,
   });
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isShuffle, setIsShuffle] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(true);
   const [stopCounter, setStopCounter] = useState(true);
   const [temp, setTemp] = useState(0);
-
-  
 
   const showToastMessage = (message = "Playing next track!") => {
     toast(message, {
@@ -86,11 +86,10 @@ function Home() {
         if (i == 5) {
           showToastMessage();
           if (isShuffle) {
-          let num = Math.random() * (6 - 1) + 1;
-          let num1 = Math.floor(num);
-          console.log(num1);
-
-          randomeSong(num1);
+            let num = Math.random() * (6 - 1) + 1;
+            let num1 = Math.floor(num);
+            console.log("isShuffle", num1);
+            randomeSong(num1);
           } else {
             if (selectedMusic.id == 5) {
               randomeSong(1);
@@ -110,6 +109,7 @@ function Home() {
   };
   const runLoops = async (id) => {
     selectMusic(id);
+    setIsPlaying((prev) => !prev);
 
     for (let i = 0; i < 25; i++) {
       if (setTemp != 0) {
@@ -122,7 +122,7 @@ function Home() {
           await theLoop();
         } else {
           setCounter(0);
-          setStopCounter(false)
+          setStopCounter(false);
           return;
         }
       }
@@ -151,6 +151,7 @@ function Home() {
   const nextSong = (id) => {
     runLoops();
     showToastMessage();
+    console.log(id);
     if (id == 5) {
       randomeSong(1);
     } else {
@@ -213,11 +214,16 @@ function Home() {
                   src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-next.svg"
                   alt="next"
                 />
-                {isShuffle ? (
+                {/* {isShuffle ? (
                   <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
                 ) : (
-                  <img id="shuffle" style={{opacity:.2}} src={Shuffle} onClick={handleShuffle} />
-                )}
+                  <img
+                    id="shuffle"
+                    style={{ opacity: 0.2 }}
+                    src={Shuffle}
+                    onClick={handleShuffle}
+                  />
+                )} */}
               </div>
               <audio
                 ref={audioPlayerRef}

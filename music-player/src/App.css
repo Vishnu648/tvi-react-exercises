@@ -106,7 +106,8 @@ header {
 }
 #nextPrevSong {
   height: 51px;
-  width: 290px;
+  /* width: 290px; shufle*/
+  width: 200px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
