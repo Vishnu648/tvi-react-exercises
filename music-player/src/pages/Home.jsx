@@ -61,7 +61,7 @@ function Home() {
     composer: "Harris Jayaraj",
     img: palaPalakkura,
   });
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isShuffle, setIsShuffle] = useState(true);
   const [stopCounter, setStopCounter] = useState(true);
   const [temp, setTemp] = useState(0);
@@ -89,13 +89,6 @@ function Home() {
             console.log("isShuffle", num1);
             randomeSong(num1);
           } 
-          // else {
-          //   if (selectedMusic.id == 5) {
-          //     randomeSong(1);
-          //   } else {
-          //     randomeSong(selectedMusic.id + 1);
-          //   }
-          // }
         }
         resolve(setCounter(i));
       }, 1000)
