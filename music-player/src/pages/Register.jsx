@@ -10,13 +10,14 @@ function Register() {
   const [email, setEmail] = useState("");
 
   const handleSubmit = () => {
-    if(password==confirmPassword){
-      let details={
-        email:email,
-        password:password
-      }
+    if (password == confirmPassword) {
+      let details = {
+        email: email,
+        password: password,
+      };
+
+      window.localStorage.setItem("cred", JSON.stringify(details));
     }
-    
   };
 
   return (
