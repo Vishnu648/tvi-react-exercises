@@ -13,7 +13,7 @@ function Login() {
 
   const handleSubmit = () => {
     if (credentials.email == email && credentials.password == password) {
-      navigate("/");
+      navigate("/home");
     } else {
       console.log("invalide credentials");
     }
@@ -45,7 +45,7 @@ function Login() {
             className="submitBtn"
           />
         </form>
-        <Link to={"/register"}>
+        <Link to={"/"}>
           <p className="registerLoginLink">register</p>
         </Link>
       </div>

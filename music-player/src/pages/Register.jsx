@@ -2,8 +2,10 @@ import { useState } from "react";
 import Header from "../components/Header";
 import "./pages.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,6 +19,7 @@ function Register() {
       };
 
       window.localStorage.setItem("cred", JSON.stringify(details));
+      navigate("/login");
     }
   };
 
@@ -31,24 +34,28 @@ function Register() {
             value={Username}
             type="text"
             placeholder="Username"
+            required
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             type="password"
             placeholder="Password"
+            required
           />
           <input
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
             type="password"
             placeholder="Confirm password"
+            required
           />
           <input
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             type="email"
             placeholder="E-mail address"
+            required
           />
 
           <input
