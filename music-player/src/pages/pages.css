@@ -1,0 +1,31 @@
+* {
+  text-decoration: none;
+}
+.formStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10vh;
+}
+
+input {
+  width: 480px;
+  height: 50px;
+  padding-left: 15px;
+  border-radius: 5px;
+}
+
+.submitBtn {
+  width: 200px;
+  cursor: pointer;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+}
+.registerLoginLink {
+  margin-top: 30px;
+}

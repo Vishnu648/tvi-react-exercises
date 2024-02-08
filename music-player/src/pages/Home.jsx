@@ -171,7 +171,7 @@ function Home() {
 
   return (
     <div className="container">
-      <Header/>
+      <Header title={'Music Player'}/>
       <section className="musicContainer">
         {counter}
         <div id="playStream">
