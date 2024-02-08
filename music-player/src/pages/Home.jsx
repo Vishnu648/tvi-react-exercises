@@ -8,7 +8,6 @@ import three from "../assets/music/3.mp3";
 import four from "../assets/music/4.mp3";
 import five from "../assets/music/5.mp3";
 
-import Play from "/play.png";
 import {
   enthero,
   Kokkarakokkarako,
@@ -17,6 +16,9 @@ import {
   UdhundadaSangu,
 } from "../assets/logos/logos";
 import Shuffle from "../assets/logos/shuffle.png";
+import PlayList from "../components/PlayList";
+import Streaming from "../components/Streaming";
+import Header from "../components/Header";
 
 function Home() {
   const audioPlayerRef = useRef(null);
@@ -88,7 +90,7 @@ function Home() {
             let num1 = Math.floor(num);
             console.log("isShuffle", num1);
             randomeSong(num1);
-          } 
+          }
         }
         resolve(setCounter(i));
       }, 1000)
@@ -169,83 +171,23 @@ function Home() {
 
   return (
     <div className="container">
-      <header>
-        <h1>Music Player</h1>
-      </header>
+      <Header/>
       <section className="musicContainer">
         {counter}
         <div id="playStream">
-          <div className="streaming">
-            <div id="upperStream">
-              <img id="streamingImg" src={selectedMusic.img} />
-              <div id="streamingDetails">
-                <p className="streamName">{selectedMusic.name}</p>
-                <p></p>
-                <p className="streamComposer">{selectedMusic.composer}</p>
-              </div>
-            </div>
-            <div id="audioTag">
-              <div id="nextPrevSong">
-                <img
-                  onClick={() => previousSong(selectedMusic.id)}
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-previous.svg"
-                  alt="prev"
-                />
-                {isPlaying ? (
-                  <img
-                    onClick={playAndPause}
-                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-pause.svg"
-                    alt="pause"
-                  />
-                ) : (
-                  <img onClick={playAndPause} src={Play} alt="play" />
-                )}
-
-                <img
-                  onClick={() => nextSong(selectedMusic.id)}
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329679/music-player-freebie-next.svg"
-                  alt="next"
-                />
-                {/* {isShuffle ? (
-                  <img id="shuffle" src={Shuffle} onClick={handleShuffle} />
-                ) : (
-                  <img
-                    id="shuffle"
-                    style={{ opacity: 0.2 }}
-                    src={Shuffle}
-                    onClick={handleShuffle}
-                  />
-                )} */}
-              </div>
-              <audio
-                ref={audioPlayerRef}
-                id="audio"
-                controls
-                src={selectedMusic.music}
-                autoPlay
-              />
-            </div>
-          </div>
-          {playlist.map((m) => {
-            return (
-              <div
-                style={
-                  m.id === selectedMusic.id
-                    ? { opacity: "0.3" }
-                    : { opacity: "1" }
-                }
-                className="music"
-                key={m.id}
-                onClick={() => runLoops(m.id)}
-              >
-                <img src={m.img} alt="i" id="musicLogo" />
-                <div>
-                  <p id="musicName">{m.name}</p>
-                  <p id="composer">{m.composer}</p>
-                </div>
-              </div>
-            );
-          })}
+          <Streaming
+            selectedMusic={selectedMusic}
+            isPlaying={isPlaying}
+            playAndPause={playAndPause}
+            audioPlayerRef={audioPlayerRef}
+            previousSong={previousSong}
+            nextSong={nextSong}
+          />
+          <PlayList
+            playlist={playlist}
+            selectedMusic={selectedMusic}
+            selectMusic={runLoops}
+          />
         </div>
       </section>
       <ToastContainer />
