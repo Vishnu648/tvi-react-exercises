@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import "./pages.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import googleLogo from '../assets/google.jpg';
+
 
 function Register() {
   const navigate = useNavigate();
@@ -68,6 +70,17 @@ function Register() {
         <Link to={"/login"}>
           <p className="registerLoginLink">login</p>
         </Link>
+      </div>
+      <div className="google">
+        <p>
+          <img
+            src={googleLogo}
+            alt="gg"
+            height={30}
+            style={{marginRight:'20px'}}
+          />
+          Continue with google
+        </p>
       </div>
     </div>
   );
