@@ -16,6 +16,9 @@ header {
   justify-content: center;
   align-items: center;
 }
+header h1 {
+  text-align: center;
+}
 .musicContainer {
   background-color: #faf5ff;
   height: 100vh;
@@ -140,4 +143,18 @@ header {
 #playOrPause::-webkit-media-controls {
   -webkit-justify-content: center;
   height: 25px;
+}
+.logout {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  left: 700px;
+}
+.logout:hover {
+  background-color: lightgray;
+}
+.error {
+  color: red;
 }

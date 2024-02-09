@@ -3,8 +3,7 @@ import Header from "../components/Header";
 import "./pages.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import googleLogo from '../assets/google.jpg';
-
+import Google from "./Google";
 
 function Register() {
   const navigate = useNavigate();
@@ -12,22 +11,34 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [empty, setEmpty] = useState(true);
 
-  const handleSubmit = () => {
-    if (password == confirmPassword) {
-      let details = {
-        email: email,
-        password: password,
-      };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      Username.length > 3 &&
+      password.length > 3 &&
+      confirmPassword.length > 3 &&
+      email.length>0
+    ) {
+      if (password == confirmPassword) {
+        let details = {
+          email: email,
+          password: password,
+        };
 
-      window.localStorage.setItem("cred", JSON.stringify(details));
-      navigate("/login");
+        window.localStorage.setItem("cred", JSON.stringify(details));
+        navigate("/login");
+      }
+      setEmpty(true);
+    } else {
+      setEmpty(false);
     }
   };
 
   return (
     <div className="registerContainer">
-      <Header title="Register" />
+      <Header title="Register" logout={false} />
 
       <div className="formContainer">
         <form className="formStyle">
@@ -59,10 +70,15 @@ function Register() {
             placeholder="E-mail address"
             required
           />
+          {empty ? (
+            ""
+          ) : (
+            <p className="error">all fields are required</p>
+          )}
 
           <input
             onClick={handleSubmit}
-            type="button"
+            type="submit"
             value="Register"
             className="submitBtn"
           />
@@ -71,17 +87,7 @@ function Register() {
           <p className="registerLoginLink">login</p>
         </Link>
       </div>
-      <div className="google">
-        <p>
-          <img
-            src={googleLogo}
-            alt="gg"
-            height={30}
-            style={{marginRight:'20px'}}
-          />
-          Continue with google
-        </p>
-      </div>
+      {/* <Google /> */}
     </div>
   );
 }

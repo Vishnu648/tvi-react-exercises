@@ -24,18 +24,18 @@ function Home() {
   const audioPlayerRef = useRef(null);
   const [playlist, setPlaylist] = useState([
     {
-      name: "Pala Palakkura",
-      music: Ayan,
-      id: 1,
-      composer: "Harris Jayaraj",
-      img: palaPalakkura,
-    },
-    {
       name: "Udhungada Sangu ",
       music: two,
-      id: 2,
+      id: 1,
       composer: "Anirudh Ravichander",
       img: UdhundadaSangu,
+    },
+    {
+      name: "Pala Palakkura",
+      music: Ayan,
+      id: 2,
+      composer: "Harris Jayaraj",
+      img: palaPalakkura,
     },
     { name: "Enthero", music: three, id: 3, composer: "appu", img: enthero },
     {
@@ -57,11 +57,11 @@ function Home() {
   const [counter, setCounter] = useState();
   const [randomSongId, setRandomSongId] = useState(1);
   const [selectedMusic, setSelectedMusic] = useState({
-    name: "Pala Palakkura",
-    music: Ayan,
+    name: "Udhungada Sangu ",
+    music: two,
     id: 1,
-    composer: "Harris Jayaraj",
-    img: palaPalakkura,
+    composer: "Anirudh Ravichander",
+    img: UdhundadaSangu,
   });
   const [isPlaying, setIsPlaying] = useState(true);
   const [isShuffle, setIsShuffle] = useState(true);
@@ -171,7 +171,7 @@ function Home() {
 
   return (
     <div className="container">
-      <Header title={'Music Player'}/>
+      <Header title={"Music Player"} logout={true} />
       <section className="musicContainer">
         {counter}
         <div id="playStream">
