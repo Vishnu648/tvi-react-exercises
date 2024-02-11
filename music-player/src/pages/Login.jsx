@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Google from "./Google";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,6 +10,28 @@ function Login() {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
   const [empty, setEmpty] = useState(true)
+
+  const [jwtData, setJwtData] = useState({});
+
+  const handleCallbackResponse = (response) => {
+    const token = response.credential;
+    const decoded = jwtDecode(token);
+    setJwtData(decoded);
+    navigate('/home')
+  };
+  
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "385029428488-50ed9bvmeatkut4i9kpppi2o5ocq2apb.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("googleBtn"), {
+      theme: "outlined",
+      size: "large",
+    });
+  }, []);
 
   let data = window.localStorage.getItem("cred");
   let credentials = JSON.parse(data);
@@ -66,8 +88,7 @@ function Login() {
           <p className="registerLoginLink">register</p>
         </Link>
       </div>
-
-      {/* <Google/> */}
+      <div id="googleBtn"></div>
     </div>
   );
 }

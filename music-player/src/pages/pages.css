@@ -46,3 +46,8 @@ input {
   justify-content: start;
   align-items: center;
 }
+#googleBtn{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
