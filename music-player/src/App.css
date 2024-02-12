@@ -13,7 +13,7 @@ header {
   padding: 15px;
   font-family: "Times New Roman", Times, serif;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 header h1 {
@@ -157,4 +157,18 @@ header h1 {
 }
 .error {
   color: red;
+}
+.logoutBtn{
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+.logData{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logData img{
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
 }

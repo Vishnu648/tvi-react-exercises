@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import "./pages.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,35 +12,13 @@ function Register() {
   const [email, setEmail] = useState("");
   const [empty, setEmpty] = useState(true);
 
-  const [jwtData, setJwtData] = useState({});
-
-  const handleCallbackResponse = (response) => {
-    const token = response.credential;
-    const decoded = jwtDecode(token);
-    setJwtData(decoded);
-    navigate("/home");
-  };
-
-  useEffect(() => {
-    google.accounts.id.initialize({
-      client_id:
-        "385029428488-50ed9bvmeatkut4i9kpppi2o5ocq2apb.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("googleBtn"), {
-      theme: "outlined",
-      size: "large",
-    });
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       Username.length > 3 &&
       password.length > 3 &&
       confirmPassword.length > 3 &&
-      email.length > 0
+      email.length>0
     ) {
       if (password == confirmPassword) {
         let details = {
@@ -92,7 +69,11 @@ function Register() {
             placeholder="E-mail address"
             required
           />
-          {empty ? "" : <p className="error">all fields are required</p>}
+          {empty ? (
+            ""
+          ) : (
+            <p className="error">all fields are required</p>
+          )}
 
           <input
             onClick={handleSubmit}
@@ -105,7 +86,6 @@ function Register() {
           <p className="registerLoginLink">login</p>
         </Link>
       </div>
-      <div id="googleBtn"></div>
     </div>
   );
 }

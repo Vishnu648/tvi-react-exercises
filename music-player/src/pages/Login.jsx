@@ -17,6 +17,7 @@ function Login() {
     const token = response.credential;
     const decoded = jwtDecode(token);
     setJwtData(decoded);
+    window.localStorage.setItem('googleAuth',JSON.stringify(decoded))
     navigate('/home')
   };
   
