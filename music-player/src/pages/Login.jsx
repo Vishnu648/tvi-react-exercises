@@ -31,6 +31,7 @@ function Login() {
       theme: "outlined",
       size: "large",
     });
+    google.accounts.id.prompt();
   }, []);
 
   let data = window.localStorage.getItem("cred");
