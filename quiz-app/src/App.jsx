@@ -3,6 +3,7 @@ import Header from "./components/Header";
 
 function App() {
   const [quizs, setQuizs] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState(0);
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/questions")
@@ -10,9 +11,14 @@ function App() {
       .then((ans) => setQuizs(ans));
   }, []);
 
-  const handleClick = (p) => {
-    // p==quizs.correctAnswer?console.log('correct'):console.log('incorrect');
-    console.log(quizs);
+  const handleClick = (obj, selection) => {
+    selection == obj.correctAnswer
+      ? setCorrectAnswer((prev) => prev + 1)
+      : null;
+  };
+
+  const showResult = () => {
+    alert(`${correctAnswer}/${quizs.length}`);
   };
 
   return (
@@ -28,8 +34,7 @@ function App() {
               key={q.correctAnswer}
               htmlFor={q.correctAnswer}
               id="answersLabel"
-              style={{ background: "gray" }}
-              onClick={(e) => handleClick(e.target.value)}
+              onClick={(e) => handleClick(q, e.target.value)}
             >
               <input
                 type="radio"
@@ -44,7 +49,7 @@ function App() {
                 key={ica}
                 htmlFor={ica}
                 id="answersLabel"
-                onClick={(e) => handleClick(e.target.value)}
+                onClick={(e) => handleClick(q, e.target.value)}
               >
                 <input
                   type="radio"
@@ -58,6 +63,9 @@ function App() {
           </div>
         ))}
       </section>
+      <button id="submitBtn" onClick={showResult}>
+        submit
+      </button>
     </div>
   );
 }

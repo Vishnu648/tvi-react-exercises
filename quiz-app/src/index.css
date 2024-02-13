@@ -19,7 +19,7 @@ header{
 #quizContainer{
   border: 1px solid;
   margin: 20px 180px;
-  height: 73vh;
+  height: 68vh;
   overflow-y: scroll;
   padding:25px;
 }
@@ -29,4 +29,16 @@ header{
 }
 #singleQuestion{
   margin: 15px 0;
+}
+#submitBtn{
+  width: 150px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  background-color: black;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 10px;
 }
