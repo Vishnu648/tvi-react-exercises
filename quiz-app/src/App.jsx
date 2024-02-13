@@ -10,6 +10,11 @@ function App() {
       .then((ans) => setQuizs(ans));
   }, []);
 
+  const handleClick = (p) => {
+    // p==quizs.correctAnswer?console.log('correct'):console.log('incorrect');
+    console.log(quizs);
+  };
+
   return (
     <div className="container">
       <Header />
@@ -23,14 +28,30 @@ function App() {
               key={q.correctAnswer}
               htmlFor={q.correctAnswer}
               id="answersLabel"
-              style={{background:'gray'}}
+              style={{ background: "gray" }}
+              onClick={(e) => handleClick(e.target.value)}
             >
-              <input type="checkbox" id={q.correctAnswer} />
+              <input
+                type="radio"
+                value={q.correctAnswer}
+                id={q.correctAnswer}
+                name={q.correctAnswer}
+              />
               {q.correctAnswer}
             </label>
             {q.incorrectAnswers.map((ica) => (
-              <label key={ica} htmlFor={ica} id="answersLabel">
-                <input type="checkbox" id={ica} />
+              <label
+                key={ica}
+                htmlFor={ica}
+                id="answersLabel"
+                onClick={(e) => handleClick(e.target.value)}
+              >
+                <input
+                  type="radio"
+                  value={ica}
+                  id={ica}
+                  name={q.correctAnswer}
+                />
                 {ica}
               </label>
             ))}
