@@ -26,13 +26,7 @@ function WithKey() {
             <h2>
               {i + 1} - {q.question}
             </h2>
-            {/* {console.log(q.answers)} */}
-            {charArr.map((ans, i) => (
-              <>
-                {/* <p>{`${q.answers[0]}${ans}`}</p> */}
-                {console.log()}
-              </>
-            ))}
+           {console.log(q.answers.answer_a)}
           </div>
         ))}
       </section>

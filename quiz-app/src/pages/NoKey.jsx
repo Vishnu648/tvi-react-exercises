@@ -5,7 +5,8 @@ function NoKey() {
   const [quizs, setQuizs] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  const [isComplete, setIsComplete] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/questions")
@@ -25,8 +26,10 @@ function NoKey() {
   const showResult = () => {
     if (selectedQuestions.length == 10) {
       setIsComplete(true);
+      setErr(false);
     } else {
       setIsComplete(false);
+      setErr(true);
     }
   };
 
@@ -38,9 +41,8 @@ function NoKey() {
           <b>SCORE</b>
           {`   ${correctAnswer}/${quizs.length}`}
         </p>
-      ) : (
-        <p className="error">complete the quiz</p>
-      )}
+      ) : null}
+      {err ? <p className="error">complete the quiz</p> : ""}
       <section id="quizContainer">
         {quizs.map((q, i) => (
           <div key={i} id="singleQuestion">
