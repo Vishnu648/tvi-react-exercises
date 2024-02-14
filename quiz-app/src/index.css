@@ -19,11 +19,12 @@ header{
 }
 #quizContainer{
   border: 1px solid;
+  border-radius: 10px;
   margin: 20px 180px;
   height: 68vh;
   width: 60vw;
   overflow-y: scroll;
-  padding:25px;
+  padding:20px;
 }
 #answersLabel{
   display: flex;
@@ -31,6 +32,9 @@ header{
 }
 #singleQuestion{
   margin: 15px 0;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 10px;
 }
 #submitBtn{
   width: 150px;
