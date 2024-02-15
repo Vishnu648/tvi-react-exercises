@@ -33,14 +33,23 @@ function NoKey() {
     }
   };
 
+  const tryAgain = () => {
+    location.reload();
+  };
+
   return (
     <div className="container">
       <Header />
       {isComplete ? (
-        <p className="score">
-          <b>SCORE</b>
-          {`   ${correctAnswer}/${quizs.length}`}
-        </p>
+        <>
+          <p className="score">
+            <b>SCORE</b>
+            {`   ${correctAnswer}/${quizs.length}`}
+          </p>
+          <button onClick={tryAgain} id="submitBtn">
+            Try again
+          </button>
+        </>
       ) : null}
       {err ? <p className="error">complete the quiz</p> : ""}
       <section id="quizContainer">
