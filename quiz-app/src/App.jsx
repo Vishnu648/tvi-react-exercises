@@ -5,8 +5,8 @@ import WithKey from './pages/WithKey'
 function App() {
   return (
     <>
-      {/* <WithKey/> */}
-      <NoKey/>
+      <WithKey/>
+      {/* <NoKey/> */}
 
       
     </>
