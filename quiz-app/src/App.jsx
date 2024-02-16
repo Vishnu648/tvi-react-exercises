@@ -1,16 +1,15 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import NoKey from "./pages/NoKey";
 import WithKey from "./pages/WithKey";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+export const MarkContext = createContext();
 
 function App() {
+  const [globalMark, setGlobalMark] = useState(0)
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" Component={NoKey}/>
-        <Route path="/key" Component={WithKey}/>
-      </Routes>
-    </BrowserRouter>
+    <MarkContext.Provider value={{globalMark,setGlobalMark}}>
+      <NoKey />
+    </MarkContext.Provider>
   );
 }
 

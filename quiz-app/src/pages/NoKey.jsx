@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "../components/Header";
 import Score from "../components/Score";
 import Error from "../components/Error";
 import Question from "../components/Question";
 import Options from "../components/Options";
 import SubmitButton from "../components/SubmitButton";
+import {MarkContext } from '../App'
 
 function NoKey() {
   const [quizs, setQuizs] = useState([]);
@@ -12,6 +13,7 @@ function NoKey() {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
   const [err, setErr] = useState(false);
+  const {globalMark,setGlobalMark}=useContext(MarkContext)
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/questions")
@@ -22,6 +24,7 @@ function NoKey() {
   const handleClick = (obj, selection) => {
     if (selection == obj.correctAnswer) {
       setCorrectAnswer((prev) => prev + 1);
+      setGlobalMark((prev) => prev + 1);
     }
     !selectedQuestions.includes(obj.id)
       ? setSelectedQuestions((prev) => [...prev, obj.id])
@@ -36,6 +39,8 @@ function NoKey() {
       setIsComplete(false);
       setErr(true);
     }
+    console.log('globalMark-----',globalMark);
+    console.log('setglobal-----',setGlobalMark);
   };
 
   const tryAgain = () => {

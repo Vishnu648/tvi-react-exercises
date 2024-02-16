@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment,useContext } from "react";
 import Header from "../components/Header";
 import Score from "../components/Score";
 import Error from "../components/Error";
@@ -12,6 +12,8 @@ function WithKey() {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
   const [err, setErr] = useState(false);
+
+  
 
   useEffect(() => {
     fetch(
