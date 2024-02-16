@@ -1,5 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Header from "../components/Header";
+import Score from "../components/Score";
+import Error from "../components/Error";
+import Question from "../components/Question";
+import SubmitButton from "../components/SubmitButton";
+import WithKeyOptoins from "../components/WithKeyOptoins";
 
 function WithKey() {
   const [quizs, setQuizs] = useState([]);
@@ -51,29 +56,18 @@ function WithKey() {
   return (
     <div className="flex flex-col items-center">
       <Header />
-      {isComplete ? (
-        <>
-          <p className="mt-2 text-[20px]">
-            <b>SCORE</b>
-            {`   ${correctAnswer}/${quizs.length}`}
-          </p>
-          <button
-            onClick={tryAgain}
-            className="w-[150px] p-2 flex justify-center self-center bg-black text-white outline-none rounded-lg cursor-pointer mt-2"
-            id="submitBtn"
-          >
-            Try again
-          </button>
-        </>
-      ) : null}
-      {err ? (
-        <p className="text-red-600 text-[20px] mt-2">complete the quiz</p>
-      ) : (
-        ""
-      )}
+      <Score
+        isComplete={isComplete}
+        quizLength={quizs.length}
+        tryAgain={tryAgain}
+        correctAnswer={correctAnswer}
+      />
+
+      <Error err={err} />
+
       <section
         id="quizContainer"
-        className="border border-black rounded-lg my-[20px] mx-[180px] h-[70vh] w-[60vw] overflow-y-scroll p-5"
+        className="border border-black rounded-lg mt-6 h-[70vh] w-[90vw] md:w-[60vw] overflow-y-scroll p-5"
       >
         {quizs.map((q, i) => (
           <div
@@ -81,40 +75,18 @@ function WithKey() {
             id="singleQuestion"
             className="my-[15px] border border-gray-600 p-3 rounded-lg"
           >
-            <h2 className="text-xl font-semibold">
-              {i + 1} - {q.question}
-            </h2>
+            <Question i={i + 1} question={q.question} />
+
             {charArr.map((c) =>
-              q.answers[c] ? (
-                <label
-                  key={c}
-                  htmlFor={q.answers[c]}
-                  id="answersLabel"
-                  className="flex accent-black gap-2 mt-2 mb-2 ml-9"
-                  onClick={(e) => handleClick(q, e.target.value)}
-                >
-                  <input
-                    type="radio"
-                    value={q.answers[c]}
-                    id={q.answers[c]}
-                    name={q.question}
-                  />
-                  {q.answers[c]}
-                </label>
-              ) : (
-                ""
-              )
+            <Fragment key={c}>
+
+              <WithKeyOptoins q={q} handleClick={handleClick} c={c} />
+            </Fragment>
             )}
           </div>
         ))}
       </section>
-      <button
-        id="submitBtn"
-        className="w-[150px] p-2 flex justify-center self-center bg-black text-white outline-none rounded-lg cursor-pointer mt-2"
-        onClick={showResult}
-      >
-        submit
-      </button>
+      <SubmitButton showResult={showResult} />
     </div>
   );
 }

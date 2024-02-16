@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
+import Score from "../components/Score";
+import Error from "../components/Error";
+import Question from "../components/Question";
+import Options from "../components/Options";
+import SubmitButton from "../components/SubmitButton";
 
 function NoKey() {
   const [quizs, setQuizs] = useState([]);
@@ -40,21 +45,17 @@ function NoKey() {
   return (
     <div className="flex flex-col items-center">
       <Header />
-      {isComplete ? (
-        <>
-          <p className="mt-2 text-[20px]">
-            <b>SCORE</b>
-            {`   ${correctAnswer}/${quizs.length}`}
-          </p>
-          <button className="w-[150px] p-2 flex justify-center self-center bg-black text-white outline-none rounded-lg cursor-pointer mt-2" onClick={tryAgain} id="submitBtn">
-            Try again
-          </button>
-        </>
-      ) : null}
-      {err ? <p className="text-red-600 text-[20px] mt-2">complete the quiz</p> : ""}
+      <Score
+        isComplete={isComplete}
+        quizLength={quizs.length}
+        tryAgain={tryAgain}
+        correctAnswer={correctAnswer}
+      />
+      <Error err={err} />
+
       <section
         id="quizContainer"
-        className="border border-black rounded-lg my-[20px] mx-[180px] h-[70vh] w-[60vw] overflow-y-scroll p-5"
+        className="border border-black rounded-lg mt-6 h-[70vh] w-[90vw] md:w-[60vw] overflow-y-scroll p-5"
       >
         {quizs.map((q, i) => (
           <div
@@ -62,47 +63,16 @@ function NoKey() {
             id="singleQuestion"
             className="my-[15px] border border-gray-600 p-3 rounded-lg"
           >
-            <h2 className="text-xl font-semibold">
-              {i + 1} - {q.question.text}
-            </h2>
-            <label
-              key={q.correctAnswer}
-              htmlFor={q.correctAnswer}
-              id="answersLabel"
-              className="flex accent-black gap-2 mt-2 mb-2 ml-9"
-              onClick={(e) => handleClick(q, e.target.value)}
-            >
-              <input
-                type="radio"
-                value={q.correctAnswer}
-                id={q.correctAnswer}
-                name={q.correctAnswer}
-              />
-              {q.correctAnswer}
-            </label>
-            {q.incorrectAnswers.map((ica) => (
-              <label
-                key={ica}
-                htmlFor={ica}
-                id="answersLabel"
-                className="flex accent-black gap-2 mt-2 mb-2 ml-9"
-                onClick={(e) => handleClick(q, e.target.value)}
-              >
-                <input
-                  type="radio"
-                  value={ica}
-                  id={ica}
-                  name={q.correctAnswer}
-                />
-                {ica}
-              </label>
-            ))}
+            <Question i={i + 1} question={q.question.text} />
+            <Options
+              correctAnswer={q.correctAnswer}
+              handleClick={handleClick}
+              q={q}
+            />
           </div>
         ))}
       </section>
-      <button id="submitBtn" className="w-[150px] p-2 flex justify-center self-center bg-black text-white outline-none rounded-lg cursor-pointer mt-2" onClick={showResult}>
-        submit
-      </button>
+     <SubmitButton showResult={showResult}/>
     </div>
   );
 }
